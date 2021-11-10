@@ -16,23 +16,20 @@ class RandomChar extends Component {
         homepage: null,
         wiki: null
         }
-    marvelService = new MarvelService();
+        marvelService = new MarvelService();
 
-    updateChar = () => {
-        // const id = 1011005;
-        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-        this.marvelService
-        .getCaracter(id)
-        .then(item => {
-            this.setState({
-                name: item.data.results[0].name,
-                description: item.data.results[0].description,
-                thumbnail: item.data.results[0].thumbnail.path + '.' + item.data.results[0].thumbnail.extension,
-                homepage: item.data.results[0].urls[0].url,
-                wiki: item.data.results[0].urls[1].url
+        updateChar = () => {
+            // const id = 1011005;
+            const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+            this.marvelService
+            .getCharacter(id)
+            .then(res => {
+                this.setState(res)
             })
-        })
-    }
+            // .getAllCaracters()
+            // .then(res => console.log(res))
+        }
+    
     
     render() {
         const {name, description, thumbnail, homepage, wiki} = this.state;
@@ -63,7 +60,7 @@ class RandomChar extends Component {
                     <p className="randomchar__title">
                         Or choose another one
                     </p>
-                    <button onClick={() => this.updateChar()} className="button button__main">
+                    <button onClick={this.updateChar} className="button button__main">
                         <div className="inner">try it</div>
                     </button>
                     <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
