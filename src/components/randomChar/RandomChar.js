@@ -1,5 +1,7 @@
 import { Component } from 'react';
+
 import MarvelService from '../../services/MarvelService';
+import Spinner from '../spinner/spinner';
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
@@ -10,7 +12,8 @@ class RandomChar extends Component {
         this.updateChar();// it's bad practice
     }
     state = {
-        char: {}
+        char: {},
+        loading: true
         }
         marvelService = new MarvelService();
 
@@ -26,9 +29,12 @@ class RandomChar extends Component {
     
     
     render() {
-        const {char: {name, description, thumbnail, homepage, wiki}} = this.state;
-        // const descr = description ? description : "No data about this character.";
-        // const descr2 = descr.length > 210 ? descr.slice(0,210) + "..." : descr;
+        const {char: {name, description, thumbnail, homepage, wiki}, loading} = this.state;
+        if(loading) {
+            return (
+                <Spinner/>
+            )
+        }
         return (
             <div className="randomchar">
                 <div className="randomchar__block">
@@ -36,7 +42,6 @@ class RandomChar extends Component {
                     <div className="randomchar__info">
                         <p className="randomchar__name">{name}</p>
                         <p className="randomchar__descr">
-                            {/* {descr2} */}
                             {description}
                         </p>
                         <div className="randomchar__btns">
