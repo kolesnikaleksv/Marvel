@@ -18,7 +18,7 @@ class RandomChar extends Component {
         marvelService = new MarvelService();
 
         onCharLoaded = (char) => {
-            this.setState({char})
+            this.setState({char, loading: false})
         }
         updateChar = () => {
             const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
@@ -29,31 +29,11 @@ class RandomChar extends Component {
     
     
     render() {
-        const {char: {name, description, thumbnail, homepage, wiki}, loading} = this.state;
-        if(loading) {
-            return (
-                <Spinner/>
-            )
-        }
+        const {char, loading} = this.state;
+        
         return (
             <div className="randomchar">
-                <div className="randomchar__block">
-                    <img src={thumbnail} alt="Random character" className="randomchar__img"/>
-                    <div className="randomchar__info">
-                        <p className="randomchar__name">{name}</p>
-                        <p className="randomchar__descr">
-                            {description}
-                        </p>
-                        <div className="randomchar__btns">
-                            <a href={homepage} className="button button__main">
-                                <div className="inner">homepage</div>
-                            </a>
-                            <a href={wiki} className="button button__secondary">
-                                <div className="inner">Wiki</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                {loading ? <Spinner/> : <View char={char}/>}
                 <div className="randomchar__static">
                     <p className="randomchar__title">
                         Random character for today!<br/>
@@ -71,5 +51,29 @@ class RandomChar extends Component {
         )
     }
 }
+
+    const View = ({char}) => {
+        const {thumbnail, name, description, homepage, wiki} = char;
+
+        return (
+            <div className="randomchar__block">
+                <img src={thumbnail} alt="Random character" className="randomchar__img"/>
+                <div className="randomchar__info">
+                    <p className="randomchar__name">{name}</p>
+                    <p className="randomchar__descr">
+                        {description}
+                    </p>
+                    <div className="randomchar__btns">
+                        <a href={homepage} className="button button__main">
+                            <div className="inner">homepage</div>
+                        </a>
+                        <a href={wiki} className="button button__secondary">
+                            <div className="inner">Wiki</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
 export default RandomChar;
