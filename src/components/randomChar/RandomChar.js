@@ -10,7 +10,9 @@ import mjolnir from '../../resources/img/mjolnir.png';
 class RandomChar extends Component {
     constructor(props) {
         super(props);
-        this.updateChar();// it's bad practice
+        // this.updateChar();// it's bad practice
+        // setInterval(this.updateChar, 3000);
+        console.log('constructor');
     }
     state = {
         char: {},
@@ -19,6 +21,26 @@ class RandomChar extends Component {
         }
     marvelService = new MarvelService();
 
+    componentDidMount() {
+//only here we can run anyone functions
+        this.updateChar();
+        // setInterval(this.updateChar, 3000);
+        this.timerId = setInterval(this.updateChar, 3000);
+
+        console.log('didMount');
+
+    }
+    componentWillUnmount() {
+// Here we can stop our timer
+        clearInterval(this.timerId);
+        console.log('WillUnmount');
+
+    }
+    componentDidUpdate() {
+        console.log('update');
+
+    }
+        
     onError = () => {
         this.setState({
             loading: false,
@@ -26,6 +48,7 @@ class RandomChar extends Component {
         })
     }
     onCharLoaded = (char) => {
+        console.log('upload');
         this.setState({char, loading: false})
     }
     updateChar = () => {
@@ -38,6 +61,7 @@ class RandomChar extends Component {
     
     
     render() {
+        console.log('render');
         const {char, loading, error} = this.state;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
