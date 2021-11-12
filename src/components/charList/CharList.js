@@ -33,21 +33,17 @@ class CharList extends Component {
             loading: false
         })
     }
-    // updateListChar = () => {
-    //     this.marvelService
-    //     .getAllCaracters()
-    //     .then(this.onCharsLoaded)
-    //     .catch(this.errorMessage)
-    // }
     renderItems(arr) {
         const items =  arr.map((item) => {
-            // console.log(item.id);
             let style = {objectFit: "cover"};
             if(item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 style = {objectFit: "contain"};
             }
             return (
-                <li className="char__item" key={item.id}>
+                <li 
+                    className="char__item" 
+                    key={item.id}
+                    onClick={() => this.props.onCharSelected(item.id)} >
                     <img src={item.thumbnail} style={style} alt="abyss"/>
                     <div className="char__name">{item.name}</div>
                 </li>

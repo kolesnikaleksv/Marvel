@@ -8,12 +8,6 @@ import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     // this.updateChar();// it's bad practice
-    //     // setInterval(this.updateChar, 3000);
-    //     console.log('constructor');
-    // }
     state = {
         char: {},
         loading: true,
