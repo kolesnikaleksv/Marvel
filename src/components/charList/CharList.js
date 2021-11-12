@@ -15,7 +15,11 @@ class CharList extends Component {
     marvelService = new MarvelService();
 
     componentDidMount() {
-        this.updateListChar();
+        // this.updateListChar();
+        this.marvelService
+        .getAllCaracters()
+        .then(this.onCharsLoaded)
+        .catch(this.errorMessage)
     }
     onCharsLoaded = (chars) => {
         this.setState({
@@ -29,15 +33,15 @@ class CharList extends Component {
             loading: false
         })
     }
-    updateListChar = () => {
-        this.marvelService
-        .getAllCaracters()
-        .then(this.onCharsLoaded)
-        .catch(this.errorMessage)
-    }
+    // updateListChar = () => {
+    //     this.marvelService
+    //     .getAllCaracters()
+    //     .then(this.onCharsLoaded)
+    //     .catch(this.errorMessage)
+    // }
     renderItems(arr) {
         const items =  arr.map((item) => {
-            console.log(item.id);
+            // console.log(item.id);
             let style = {objectFit: "cover"};
             if(item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 style = {objectFit: "contain"};
