@@ -92,19 +92,59 @@ const View = ({char}) => {
             </div>
             <div className="char__comics">Comics:</div>
             <ul className="char__comics-list">
-                
-                {
-                    comics.map((item, i) => {
-                        return (
-                            <li key={i} className="char__comics-item">
-                                {item.name}
-                            </li>
-                        )
-                    })
+                <ComicsList char={char}/>
+                {   
+                    // if(comics.length > 10) {
+                    //     comics.slice(0, 10);
+                    // } else if (comics.length < 1){ 
+                    //     return(
+                    //         <li key={i} className="char__comics-item">
+                                
+                    //         </li>
+                    //     )
+                    // }
+                    // comics.map((item, i) => {
+                    //     return (
+                    //         <li key={i} className="char__comics-item">
+                    //             {item.name}
+                    //         </li>
+                    //     )
+                    // })
                 }
             </ul>
         </>
     )
+}
+
+const ComicsList = ({char}) => {
+    const {comics} = char;
+    console.log(comics.length);
+    // const arr = comics.length ? comics.slice(0, 10) :  "<div> SDFSDF</div>";
+    if(comics.length) {
+        const arr = comics.slice(0, 10);
+        const list = arr.map((item, i) => {
+            return(
+                <li key={i} className="char__comics-item">
+                    {item.name}
+                </li>
+            )
+        })
+    
+    
+    return list;
+    } else { return (<div className="char__comics-item">There is no comics for this character</div>)}
+    
+    
+    // const list = comics.map((item, i) => {
+    //         return(
+    //             <li key={i} className="char__comics-item">
+    //                 {item.name}
+    //             </li>
+    //         )
+    //     })
+    
+    
+    // return list;
 }
 
 export default CharInfo;
