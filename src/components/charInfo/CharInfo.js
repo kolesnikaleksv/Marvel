@@ -70,7 +70,7 @@ class CharInfo extends Component {
 }
 
 const View = ({char}) => {
-    const {thumbnail, name, wiki, homepage, description} = char;
+    const {thumbnail, name, wiki, homepage, description, comics} = char;
     let style = {objectFit: "cover"};
         if(thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
             style = {objectFit: "contain"};
@@ -96,42 +96,48 @@ const View = ({char}) => {
             </div>
             <div className="char__comics">Comics:</div>
             <ul className="char__comics-list">
-                <ComicsList char={char}/>
+                {/* <ComicsList char={char}/> */}
+                {comics.lenght > 0 ? null : "There is no comics about this character"}
                 {   
-                    // comics.map((item, i) => {
-                    //     return (
-                    //         <li key={i} className="char__comics-item">
-                    //             {item.name}
-                    //         </li>
-                    //     )
-                    // })
+                    comics.map((item, i) => {
+                        // eslint-disable-next-line
+                        if(i > 9) return;// if we have many elements of this array,
+                        //this will be the wrong way to solve the problem
+                        //and to avoid problems with es-lint, we need to use
+                        //the line before it. 
+                        return (
+                            <li key={i} className="char__comics-item">
+                                {item.name}
+                            </li>
+                        )
+                    })
                 }
             </ul>
         </>
     )
 }
 
-const ComicsList = ({char}) => {
-    const {comics} = char;
-    console.log(comics.length);
-    // const arr = comics.length ? comics.slice(0, 10) :  "<div> SDFSDF</div>";
-    if(comics.length) {
-        const arr = comics.slice(0, 10);
-        const list = arr.map((item, i) => {
-            return(
-                <li key={i} className="char__comics-item">
-                    {item.name}
-                </li>
-            )
-        })
+// const ComicsList = ({char}) => {
+//     const {comics} = char;
+//     console.log(comics.length);
+//     // const arr = comics.length ? comics.slice(0, 10) :  "<div> SDFSDF</div>";
+//     if(comics.length) {
+//         const arr = comics.slice(0, 10);
+//         const list = arr.map((item, i) => {
+//             return(
+//                 <li key={i} className="char__comics-item">
+//                     {item.name}
+//                 </li>
+//             )
+//         })
     
-        return list;
-    } else { return (
-                <div className="char__comics-item">
-                    There is no comics for this character
-                </div>
-                )
-    }
-}
+//         return list;
+//     } else { return (
+//                 <div className="char__comics-item">
+//                     There is no comics for this character
+//                 </div>
+//                 )
+//     }
+// }
 
 export default CharInfo;
