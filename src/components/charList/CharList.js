@@ -15,6 +15,8 @@ class CharList extends Component {
     marvelService = new MarvelService();
 
     componentDidMount() {
+        //it is our error
+        this.foo.bar = 0;
         // this.updateListChar();
         this.marvelService
         .getAllCaracters()
