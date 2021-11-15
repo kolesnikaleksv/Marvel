@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/spinner';
@@ -118,6 +119,9 @@ const View = ({char}) => {
     )
 }
 
+CharInfo.propTypes = {
+    charId: PropTypes.number
+}
 // const ComicsList = ({char}) => {
 //     const {comics} = char;
 //     console.log(comics.length);
